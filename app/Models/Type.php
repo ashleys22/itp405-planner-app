@@ -3,22 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 
-class User extends Authenticatable
+class Type extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'username',
-        'password',
-    ];
-
-    protected $hidden = [
-        'password'
-    ];
+    protected $fillable = ['name'];
 
     public function tasks()
     {
