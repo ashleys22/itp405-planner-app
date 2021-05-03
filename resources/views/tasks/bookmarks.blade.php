@@ -1,10 +1,11 @@
 @extends('layouts.main')
 
-@section('title', 'Task List')
+@section('title', 'Bookmarked Tasks')
 
 @section('content')
 <div class="row d-flex justify-content-center container">
     <div class="col-md-8">
+        <a href="{{ route('tasks.index') }}" class="back" style="color:white;"> <i class="fas fa-list me-2"></i>View Task List</a>
         <div class="card">
             @if (session('success'))
                 <div class="d-flex flex-row-reverse">
@@ -14,18 +15,13 @@
                 </div>
             @endif
             <div class="card-header">
-                <div class="font-size-lg font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;&nbsp;Task List</div>
-                <div class="ms-auto me-2"> 
-                    <a href="{{ route('tasks.create') }}" class="border-0 btn-transition btn btn-outline-secondary"> <i class="fas fa-plus"></i> </a>       
-                </div>
+                <div class="font-size-lg font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;&nbsp;Bookmarked Tasks</div>
             </div>
             <div class="scroll-area-sm">
                 <ul class="list-group list-group-flush">
                     @foreach($tasks as $task)
                         <li class="list-group-item my-2">
-                            @if ($task->bookmarked)
-                                <div class="bookmarked"></div>
-                            @endif
+                            <div class="bookmarked"></div>
                             <div class="widget-content p-0 ms-2">
                                 <div class="widget-content-wrapper">
                                     <div class="widget-content-left">
@@ -39,13 +35,9 @@
                                         </div>
                                     </div>
                                     <div class="widget-content-right"> 
-                                        @if ($task->bookmarked)
+                                        <div class="widget-subheading">Bookmarked on {{ $task->bookmark_time }}
                                             <a data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('tasks.bookmarkModal', $task->id) }}" title="Remove bookmark" class="border-0 btn-transition btn btn-outline-warning"> <i class="fas fa-bookmark"></i> </a> 
-                                        @else
-                                            <a data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('tasks.bookmarkModal', $task->id) }}" title="Bookmark Task" class="border-0 btn-transition btn btn-outline-warning"> <i class="far fa-bookmark"></i> </a> 
-                                        @endif
-                                        <a href="{{ route('tasks.edit', [ 'task' => $task->id ]) }}" class="border-0 btn-transition btn btn-outline-success" title="Edit Task"> <i class="fas fa-edit"></i> </a> 
-                                        <a data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('tasks.delete', $task->id) }}" title="Delete Task" class="border-0 btn-transition btn btn-outline-danger"> <i class="fas fa-trash"></i> </a> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>

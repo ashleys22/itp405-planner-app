@@ -33,7 +33,7 @@ class TaskController extends Controller
     public function create()
     {
         return view('tasks.create', [
-            'courses' => Course::orderBy('name')->get(),
+            'courses' => Course::with(['user'])->where('user_id', '=', Auth::user()->id)->orderBy('name')->get(),
             'types' => Type::all()
         ]);
     }
@@ -77,7 +77,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::find($id);
+        return redirect()->route('tasks.edit', ['task' => $id]);
     }
 
     /**
@@ -91,7 +91,7 @@ class TaskController extends Controller
         $task = Task::find($id);
 
         return view('tasks.edit', [
-            'courses' => Course::orderBy('name')->get(),
+            'courses' => Course::with(['user'])->where('user_id', '=', Auth::user()->id)->orderBy('name')->get(),
             'types' => Type::all(),
             'task' => $task
         ]);
@@ -106,10 +106,6 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        // return redirect()
-        //     ->route('tasks.index')
-        //     ->with('success', "Successfully created {$request->input('name')}");
 
         $task = Task::find($id);
         //$this->authorize('update', $task);
@@ -155,5 +151,51 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')
             ->with('success', "{$name} deleted successfully");
+    }
+
+    public function bookmarks()
+    {
+        return view('tasks.bookmarks', [
+            'tasks' => Task::with(['course', 'type', 'user'])
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('bookmarked', '=', 'true')
+                ->orderBy('deadline')
+                ->get()
+        ]);
+    }
+
+    public function bookmarkModal($id)
+    {
+        $task = Task::find($id);
+
+        return view('tasks.bookmark', compact('task'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function bookmark($id)
+    {
+        $task = Task::find($id);
+
+        // remove bookmark
+        if ($task->bookmarked) {
+            $message = "Removed " . $task->name . "'s bookmark successfully.";
+        }
+        // add bookmark
+        else {
+            $task->bookmark_time = now();
+            $message = $task->name . " bookmarked successfully.";
+        }
+
+        // either bookmark or remove bookmark
+        $task->bookmarked = $task->bookmarked ? false : true;
+        $task->save();
+
+        return redirect()->route('tasks.bookmarks')
+            ->with('success', "{$message}");
     }
 }

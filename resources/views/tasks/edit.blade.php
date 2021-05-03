@@ -11,7 +11,7 @@
         <div class="card">
             @if (session('success'))
                 <div class="d-flex flex-row-reverse">
-                    <div class="alert alert-success success" role="alert">
+                    <div class="alert alert-success message" role="alert">
                         {{ session('success') }}
                     </div>
                 </div>

@@ -13,79 +13,83 @@
 
     <title>@yield('title')</title>
     <style>
-        .navbar {
-            background-color: white!important;
-            opacity: 0.6;
-            padding: 0;
+        .navigation {
+            background-color: #3a6ea5 !important;
+            height: 50px;
+        }
+        ul.nav li:hover { 
+            padding-bottom: 25px;
+            border-bottom: 3px solid aliceblue;
+        }
+
+        .navigation li:hover a{ 
+            color: #001d3d !important;
+        }
+        .navigation li {
+            padding:5px;
+        }
+        .logout:hover {
+            color: #001d3d !important;
+        }
+        .about {
+            position: absolute;
+            left: 10px;
+            top: 4px;
+        }
+
+        .about:hover a {
+            color: #001d3d !important;
+        }
+
+        .account {
+            position: absolute;
+            left: 82%;
+            top: 10px;
         }
     </style>
 
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid d-flex justify-content-between">
-          <a class="navbar-brand mx-auto" href="{{ route('tasks.index') }}">
-            <img src="/img/planner.png" alt="" width="45" height="50" class="d-inline-block align-text-center">
-            My Planner
-          </a>
-          <div class="account d-flex">
+    <ul class="navigation nav justify-content-center"> 
+        <div class="about d-flex">
+            <a class="nav-link mt-1 ms-3 text-light my-auto" href="/about" class="text-light btn btn-link">About</a>
+        </div>
+        @if (Auth::check()) 
+            <li class="nav-item h-100">
+                <a class="nav-link mt-1 me-2 text-dark my-auto" href="{{ route('courses.index') }}">
+                    Courses
+                </a>
+            </li>
+        @endif
+        <li class="nav-item h-100">
+            <a class="navbar-brand text-dark" href="{{ route('tasks.index') }}">
+                <img src="/img/planner.png" alt="" width="45" height="50" class="d-inline-block align-text-center">
+                My Planner
+            </a>
+        </li>
+        @if (Auth::check())
+            <li class="nav-item h-100">
+                <a class="nav-link mt-1 me-5 text-dark my-auto" href="{{ route('tasks.bookmarks') }}">Bookmarks</a>
+            </li>
+        @endif
+        <div class="account d-flex">
             @if (Auth::check())
-                <p class="my-auto">Welcome back, {{ Auth::user()->username }}!</p>
+                <p class="my-auto text-light">Welcome back, {{ Auth::user()->username }}!</p>
                 <form method="post" action="{{ route('auth.logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-link ms-2">Logout</button>
+                    <button type="submit" class="logout text-light btn btn-link ms-2">Logout</button>
                 </form>
+            @else 
+                <a href="{{ route('registration.index') }}" class="nav-link text-light btn btn-link logout ms-5">Register</a>
+                <a href="{{ route('auth.loginForm') }}" class="nav-link text-light btn btn-link logout ms-3">Login</a>
             @endif
-          </div>
         </div>
-    </nav>
-
-    
+    </ul>
 
     <div class="container mt-3 mb-3">
         <div class="row">
-            {{--
-            <div class="col-3">
-                <ul class="nav flex-column">
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('album.index') }}">Albums</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('eloquent_album.index') }}">Albums (Eloquent)</a>
-                    </li>
-
-                    
-                    @if (Auth::check()) 
-                        <li class="nav-item">
-                            <a href="{{ route('profile.index') }}" class="nav-link">Profile</a>
-                        </li>
-                        <li>
-                            <form method="post" action="{{ route('auth.logout') }}">
-                                @csrf
-                                <button type="submit" class="btn btn-link">Logout</button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ route('registration.index') }}" class="nav-link">Register</a>
-                         </li>
-                         <li class="nav-item">
-                            <a href="{{ route('auth.loginForm') }}" class="nav-link">Login</a>
-                         </li>
-                    @endif 
-                </ul>
-            </div> --}}
             <div class="col-12">
-                {{-- <header>
-                    <h2>@yield('title')</h2>
-                </header> --}}
-                
                 <main>
-                    {{-- @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif --}}
                     @yield('content')
                 </main>
             </div>

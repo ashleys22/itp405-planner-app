@@ -5,6 +5,7 @@
 @section('content')
 <div class="row d-flex justify-content-center container">
     <div class="col-md-8">
+        <a href="{{ route('tasks.index') }}" class="back" style="color:white;"><i class="fas fa-list me-2"></i> View Task List</a>
         <div class="card">
             @if (session('success'))
                 <div class="d-flex flex-row-reverse">
@@ -23,7 +24,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach($courses as $course)
                         <li class="list-group-item my-2">
-                            <div class="bookmarked"></div>
+                            <div class="courses"></div>
                             <div class="widget-content p-0 ms-2">
                                 <div class="widget-content-wrapper">
                                     <div class="widget-content-left">

@@ -6,6 +6,8 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::middleware(['custom-auth'])->group(function () {
     Route::get('/tasks/delete/{id}', [TaskController::class, 'delete'])->name('tasks.delete');
 
+    Route::get('/bookmarks', [TaskController::class, 'bookmarks'])->name('tasks.bookmarks');
+    Route::get('/bookmarks/{id}', [TaskController::class, 'bookmarkModal'])->name('tasks.bookmarkModal');
+    Route::put('/bookmarks/{id}', [TaskController::class, 'bookmark'])->name('tasks.bookmark');
+
     Route::resource('tasks', TaskController::class);
     // Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     // Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
@@ -52,9 +58,6 @@ Route::middleware(['custom-auth'])->group(function () {
 Route::get('/about', function () {
     return view('about');
 });
-
-
-
 
 if (env('APP_ENV') !== 'local') {
     URL::forceScheme('https');

@@ -10,13 +10,42 @@ body {
     background-color: #3a6ea5;
 }
 
-.account {
-    position: absolute;
-    left: 82%;
+/* About Page CSS */
+#about-wrapper {
+    margin: 30px auto;
+    width: 90%;
+}
+#planner-img {
+    float: left;
+    width: 40%;
+    margin: 0 30px 10px 0;
+}
+#planner-img img {
+    width: 100%;
+    height: auto;
+}
+.lead {
+    font-size: 0.9em;
+}
+#about-title {
+    font-size: 1.5em;
+}
+#about-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+#about-button:hover {
+    color: #069;
+}
+.continue:hover {
+    color: black !important;
 }
 
+/* Other CSS */
 .container {
-    margin-top: 90px;
+    margin-top: 85px;
     position: relative;
 }
 
@@ -44,10 +73,6 @@ body {
     top: -70px;
 }
 
-/* .card-header:first-child {
-    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
-} */
-
 .card-header {
     display: flex;
     align-items: center;
@@ -64,48 +89,22 @@ body {
     font-size: 12px;
 }
 
-/* .card-header.card-header-tab .card-header-title {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-} */
-
-/* .card-header .header-icon {
-    font-size: 1.65rem;
-    margin-right: 0.625rem;
-}
-
-.card-header.card-header-tab .card-header-title {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-} */
-
-/* .btn-actions-pane-right {
-    margin-left: auto;
-    white-space: nowrap;
-} */
-
 .scroll-area-sm {
     height: 400px;
     overflow-x: hidden;
 }
 
-/* .list-group-item {
-    position: relative;
-    display: block;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+.courses {
+    position: absolute;
+    width: 4px;
+    height: 60%;
+    border-radius: 0.3rem;
+    left: 0.75rem;
+    top: 20%;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    background-color: rgb(25, 146, 88) !important;
 }
-
-.list-group {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
-} */
 
 .bookmarked {
     position: absolute;

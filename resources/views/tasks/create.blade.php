@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'To-do List')
+@section('title', 'Add New Task')
 
 @section('content')
 <div class="d-flex justify-content-center container">
@@ -13,7 +13,6 @@
             <div class="scroll-area-sm">
                 <form class="w-75 pt-4 mx-auto" action="{{ route('tasks.store') }}" method="POST">
                     @csrf
-                    {{-- <input type="hidden" name="user_id" id="user_id" value={{ Auth::id() }}> --}}
                     <div class="row">
                         <div class="mb-2 col-sm-6">
                             <label for="name" class="form-label">Name</label>

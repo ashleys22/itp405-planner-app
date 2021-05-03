@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->date('deadline');
             $table->boolean('bookmarked');
-            $table->date('bookmark_time')->nullable();
+            $table->timestamp('bookmark_time')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
         });

@@ -11,13 +11,16 @@ class RegistrationController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            return redirect()->route('tasks.index');
+        }
         return view('auth.register');
     }
 
     public function register(Request $request)
     {
         $request->validate([
-            'username' => 'required|max:50',
+            'username' => 'required|max:50|unique:users,username',
             'password' => 'required|max:50',
             'confirm-password' => 'required_with:password|same:password|max:50'
         ]);
@@ -29,6 +32,6 @@ class RegistrationController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('tasks.index');
+        return redirect('/courses/create');
     }
 }

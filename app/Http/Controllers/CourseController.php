@@ -20,21 +20,30 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:50',
-            'deadline' => 'required',
-            'type' => 'required|exists:types,id',
-            'course' => 'required|exists:courses,id',
-            'description' => 'max:255'
-        ]);
+        $this->validate(
+            $request,
+            [
+                'addmore.*.name' => 'required|max:50',
+            ],
+            [
+                'addmore.*.name.required' => "All course name are required.",
+                'addmore.*.name.max' => "Maximum 50 characters",
+            ]
+        );
 
-        $course = new Course();
-        $course->name = $request->input('name');
-        $course->user_id = Auth::user()->id;
-        $course->save();
+        foreach ($request->addmore as $key => $value) {
+            $course = new Course();
+            $course->name = $value["name"];
+            $course->user_id = Auth::user()->id;
+            $course->save();
+        }
+
+        $count = count($request->addmore);
+
+        //  return back()->with('success', 'Record Created Successfully.');
 
         return redirect()
             ->route('courses.index')
-            ->with('success', "Successfully created {$request->input('name')}");
+            ->with('success', "Successfully created {$count} new courses");
     }
 }
