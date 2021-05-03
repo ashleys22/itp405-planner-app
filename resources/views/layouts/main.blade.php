@@ -43,7 +43,7 @@
 
         .account {
             position: absolute;
-            left: 82%;
+            right: 3%;
             top: 10px;
         }
     </style>
@@ -74,7 +74,7 @@
         @endif
         <div class="account d-flex">
             @if (Auth::check())
-                <p class="my-auto text-light">Welcome back, {{ Auth::user()->username }}!</p>
+                <p class="my-auto text-light">Welcome back, <br> {{ Auth::user()->username }}!</p>
                 <form method="post" action="{{ route('auth.logout') }}">
                     @csrf
                     <button type="submit" class="logout text-light btn btn-link ms-2">Logout</button>
